@@ -1,0 +1,31 @@
+<ion-content>
+  <form #addForm="ngForm" (ngSubmit)="addPatient(addForm)" class="add_form">
+    <ion-grid >
+      <ion-row >
+        <ion-col size="10" offset="1">
+          <ion-title>Novi pacijent</ion-title>
+          <ion-list>
+            <ion-item>
+              <img src="/assets/default_profile.png" alt="default_profile.img">
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Unesite ime:</ion-label>
+              <ion-input type="text" ngModel name="name" required #name="ngModel"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Unesite prezime:</ion-label>
+              <ion-input type="text" ngModel name="surname" required #surname="ngModel"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Unesite simptome</ion-label>
+              <ion-input type="text" ngModel name="diagnosis" required #diagnosis="ngModel"></ion-input>
+            </ion-item>
+          </ion-list>
+          <ion-button expand="block" type="submit" shape="round">Dodaj u cekaonicu</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

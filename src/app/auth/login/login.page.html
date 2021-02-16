@@ -1,0 +1,37 @@
+<ion-content class="background">
+  <form #logInForm="ngForm" (ngSubmit)="onLogIn(logInForm)" class="logInForm">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="8" offset="2">
+          <ion-list>
+
+            <ion-item>
+              <ion-label class="label_login" position="floating">Korisnicko ime:</ion-label>
+              <ion-input class="input_login" placeholder="Unesite korisnicko ime" type="text" ngModel name="username" required minlength="3" #username="ngModel"></ion-input>
+            </ion-item>
+
+            <ion-item lines="none" *ngIf="username.invalid && username.touched">
+              <ion-label>Najmanja duzina je 3 karaktera.</ion-label>
+            </ion-item>
+
+            <ion-item>
+              <ion-label class="label_login" position="floating">Lozinka: </ion-label>
+              <ion-input class="input_login" placeholder="Unesite lozinku" type="password" ngModel name="password" required minlength="3" #password="ngModel"></ion-input>
+            </ion-item>
+
+            <ion-item lines="none" *ngIf="password.invalid && password.touched">
+              <ion-label>Najmanja duzina je 3 karaktera.</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center" >
+        <ion-col size="8">
+          <ion-button type="submit" expand="block" shape="round" [disabled]="logInForm.invalid">Login</ion-button>
+          <ion-button expand="block" shape="round" (click)="goToRegisterPage()">REGISTER FORM</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

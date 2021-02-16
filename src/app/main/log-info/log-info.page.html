@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar class="toolbar_loginfo">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main/review" icon="home">></ion-back-button>
+    </ion-buttons>
+    <ion-title>LogInfo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="content_loginfo">
+
+  <p *ngFor="let item of logInfoList">> {{item.info}} <br> </p>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar  class="toolbar_loginfo">
+    <ion-label>Last updated at {{date}} {{time}}</ion-label>
+  </ion-toolbar>
+</ion-footer>

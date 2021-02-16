@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Username & Password</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #registrationForm="ngForm" (ngSubmit)="onRegisterUser(registrationForm)" class="register_from">
+    <ion-grid>
+
+      <ion-row>
+        <ion-col size="8" offset="2">
+          <ion-list>
+            <ion-item>
+              <ion-label position="floating">Korisnicko ime:</ion-label>
+              <ion-input placeholder="Unesite korisnicko ime" type="text" ngModel name="username" required minlength="3" #username="ngModel"></ion-input>
+            </ion-item>
+
+            <ion-item lines="none" *ngIf="username.invalid && username.touched">
+              <ion-label>Najmanja duzina je 3 karaktera.</ion-label>
+            </ion-item>
+
+
+            <ion-item>
+              <ion-label position="floating">Lozinka:</ion-label>
+              <ion-input placeholder="Unesite lozinku" type="password" ngModel name="password" required minlength="3" #password="ngModel"></ion-input>
+            </ion-item>
+
+            <ion-item lines="none" *ngIf="password.invalid && password.touched">
+              <ion-label>Najmanja duzina je 3 karaktera.</ion-label>
+            </ion-item>
+
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center" >
+        <ion-col size="6">
+          <ion-button type="submit" expand="block" shape="round" [disabled]="registrationForm.invalid">REGISTER NOW!</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center" >
+        <ion-col size="6">
+          <ion-button expand="block" shape="round" (click)="goBack()">BACK</ion-button>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </form>
+</ion-content>

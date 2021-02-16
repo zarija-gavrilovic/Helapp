@@ -5,6 +5,9 @@
 export const environment = {
   production: false
 };
+export const IPLocalHost = {
+  IP: '172.17.174.194'
+};
 
 /*
  * For easier debugging in development mode, you can import the following file

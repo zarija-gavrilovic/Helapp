@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar class="toolbar_review">
+    <ion-title>BROJ PACIJENATA U BOLNICI</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+
+
+  <ion-card class="welcome-card">
+    <ion-card-content>
+      <div id="highcharts" style="width:100%; height:400px;"></div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="welcome-card">
+    <ion-card-content>
+      <div id="simplePie" style="width:100%; height:400px;"></div>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
+
+

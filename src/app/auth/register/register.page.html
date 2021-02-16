@@ -1,0 +1,39 @@
+<ion-content>
+  <form #registrationForm="ngForm" (ngSubmit)="onRegisterUser(registrationForm)" class="register_from">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="10" offset="1">
+          <ion-list>
+
+            <ion-item>
+              <ion-label class="label_register" position="floating">Ime:</ion-label>
+              <ion-input class="input_register" placeholder="Unesite ime" type="text" ngModel name="name" required minlength="3" #name="ngModel"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label class="label_register" position="floating">Prezime:</ion-label>
+              <ion-input class="input_register" placeholder="Unesite prezime" type="text" ngModel name="surname" required minlength="3" #surname="ngModel"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label class="label_register" position="floating">Struka/Sprema:</ion-label>
+              <ion-input class="input_register" placeholder="Unesite spremu" type="text" ngModel name="orientation" required minlength="3" #orientation="ngModel"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label class="label_register" position="floating">Bolnica:</ion-label>
+              <ion-input class="input_register" placeholder="Unesite bolnicu u kojoj radite" type="text" ngModel name="hospital" required minlength="3" #hospital="ngModel"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center" >
+        <ion-col size="10" offset="1">
+          <ion-button type="submit" expand="block" shape="round" [disabled]="registrationForm.invalid">REGISTER NOW!</ion-button>
+          <ion-button expand="block" shape="round" routerLink="/login">LogIn Form</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

@@ -1,0 +1,49 @@
+
+<ion-content>
+  <form #doctorForm="ngForm" class="profile_form">
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12">
+          <ion-title>Profil doktora</ion-title>
+          <ion-list>
+            <ion-card>
+              <ion-item lines="none">
+                <ion-label>Unesite ime:</ion-label>
+                <ion-input type="text" ngModel name="name" required #name="ngModel" placeholder="{{doctor.name}}"></ion-input>
+              </ion-item>
+            </ion-card>
+
+            <ion-card>
+              <ion-item lines="none">
+                <ion-label>Unesite prezime:</ion-label>
+                <ion-input type="text" ngModel name="surname" required #surname="ngModel" placeholder="{{doctor.surname}}"></ion-input>
+              </ion-item>
+            </ion-card>
+
+            <ion-card>
+              <ion-item lines="none">
+                <ion-label>Struka/Sprema:</ion-label>
+                <ion-input type="text" ngModel name="orientation" required #orientation="ngModel" placeholder="{{doctor.orientation}}"></ion-input>
+              </ion-item>
+            </ion-card>
+
+            <ion-card>
+              <ion-item lines="none">
+                <ion-label>Bolnica:</ion-label>
+                <ion-input type="text" ngModel name="hospital" required #hospital="ngModel" placeholder="{{doctor.hospital}}"></ion-input>
+              </ion-item>
+            </ion-card>
+          </ion-list>
+
+
+
+          <ion-button expand="block" type="submit" shape="round" (click)="changeDoctor(doctorForm)">IZMENI</ion-button>
+          <ion-button expand="block" type="submit" shape="round" (click)="deleteDoctor(doctorForm)">OBRISI NALOG</ion-button>
+          <br>
+          <br>
+          <ion-button expand="block" type="submit" shape="round" (click)="logOut()">ODJAVI SE</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
