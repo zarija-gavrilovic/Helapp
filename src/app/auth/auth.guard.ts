@@ -43,9 +43,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
       route: Route,
       segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
 
-    const url : string = route.path;
-    console.log('Url:' + url);
-
     if (!this.authService.isUserAuthenticated) {
       this.router.navigateByUrl('/login');
     }

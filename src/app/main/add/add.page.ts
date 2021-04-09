@@ -36,7 +36,7 @@ export class AddPage implements OnInit {
 
       console.log('RETURNED OBJECT: ' + JSON.stringify(patient));
       let logInfo = {info : "Doktor: "+this.doctorService.getDoctorProperty().name + " "+this.doctorService.getDoctorProperty().surname + " je uneo pacijenta: " + this.patient.name + " "+ this.patient.surname + " "+this.logInfoService.getFullTime()};
-      this.logInfoService.addLogInfo(logInfo).subscribe(logInfo => {console.log('RETURNED OBJECT: ' + JSON.stringify(patient));});
+      this.logInfoService.addLogInfo(logInfo).subscribe();
       this.presentToast('Pacijent je uspesno unet!');
       form.reset();
     });

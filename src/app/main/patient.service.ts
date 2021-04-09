@@ -29,7 +29,6 @@ export class PatientService {
     }
 
     get snapshots() {
-        console.log("OKINUO SAM SE U SERVISU");
         return this._snapshots.asObservable();
     }
 
@@ -70,8 +69,6 @@ export class PatientService {
                     return snapShotArr;
                 }),
                 tap(snapShotArr => {
-
-                    //console.log(JSON.stringify(snapShotArr));
                     this._snapshots.next(snapShotArr)
                 })
             );
@@ -98,9 +95,8 @@ export class PatientService {
     }
 
 
-    /**DELETE: delete the patient from the server*/
+    /** DELETE: delete the patient from the server*/
     deletePatient(patient: Patient): Observable<Patient> {
-        console.log(patient.patient_id + "OVO JE PATIENT ID");
         return  this.http.get<any>(`http://${IPLocalHost.IP}:5000/deletepatient/${patient.patient_id}`,this.httpOptions);
     }
 

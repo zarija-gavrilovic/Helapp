@@ -37,19 +37,16 @@ export class ListsPage implements OnInit {
         this.patientService.getPatientsCategory('CEKAONICA').subscribe((patients) => {
           this.patients = patients.reverse();
         });
-        console.log('List-header-menu: ' + this.list_header_menu);
         break;
       case 'in-process' :
         this.patientService.getPatientsCategory('HOSPITALIZACIJA').subscribe((pcategory) => {
           this.patients = pcategory.reverse();
         });
-        console.log('List-header-menu: ' + this.list_header_menu);
         break;
       case 'healthy' :
         this.patientService.getPatientsCategory('ZDRAV').subscribe((pcategory) => {
           this.patients = pcategory.reverse();
         });
-        console.log('List-header-menu: ' + this.list_header_menu);
         break;
     }
   }
@@ -67,23 +64,19 @@ export class ListsPage implements OnInit {
 
   moveToHealthy(patient : Patient){
     patient.review = 'ZDRAV';
-    this.patientService.updatePatientReview(patient).subscribe((response) => {
-      console.log('Successfully updated patinetID: ' + response);
-    });
+    this.patientService.updatePatientReview(patient).subscribe();
     this.loadData();
     this.patientService.snapshots.subscribe();
     let logInfo = {info : "Doktor: "+this.doctorService.getDoctorProperty().name + " "+this.doctorService.getDoctorProperty().surname + " je OTPUSTIO pacijenta: " + patient.name + " "+ patient.surname+" " +this.logInfoService.getFullTime()};
-    this.logInfoService.addLogInfo(logInfo).subscribe(logInfo => {console.log('RETURNED OBJECT: ' + JSON.stringify(patient));});
+    this.logInfoService.addLogInfo(logInfo).subscribe();
   }
 
   deletePatient(patient){
-    this.patientService.deletePatient(patient).subscribe(()=>{
-      console.log("Patient deleted");
-    });
+    this.patientService.deletePatient(patient).subscribe();
     this.loadData();
     this.patientService.snapshots.subscribe();
     let logInfo = {info : "Doktor: "+this.doctorService.getDoctorProperty().name + " "+this.doctorService.getDoctorProperty().surname + " je OBRISAO pacijenta: " + patient.name + " "+ patient.surname+" " +this.logInfoService.getFullTime()};
-    this.logInfoService.addLogInfo(logInfo).subscribe(logInfo => {console.log('RETURNED OBJECT: ' + JSON.stringify(patient));})
+    this.logInfoService.addLogInfo(logInfo).subscribe()
   }
 
 

@@ -20,13 +20,6 @@ export class ReviewPage implements OnInit {
   subscribe: any;
   constructor(private patientService: PatientService,
               public platform: Platform) {
-    // this.subscribe = this.platform.backButton.subscribeWithPriority(666666, () => {
-    //   if (this.constructor.name == 'ReviewPage'){
-    //     if (window.confirm('Da li zelite da izadjete iz aplikacije?')){
-    //       navigator['app'].exitApp();
-    //     }
-    //   }
-    // });
   }
 
   ionViewDidEnter() {
@@ -52,15 +45,11 @@ export class ReviewPage implements OnInit {
         this.in_processArr.push(snapShotsArr[ssData].in_process);
         this.healthyArr.push(snapShotsArr[ssData].healthy);
       }
-      console.log('NIZ A ' + this.waiting_roomArr);
-      console.log('NIZ B ' + this.in_processArr);
-      console.log('NIZ C ' + this.healthyArr);
       this.plotSimpleBarChart();
       this.plotSimplePieChart(this.waiting_roomArr[this.waiting_roomArr.length - 1], this.in_processArr[this.in_processArr.length - 1], this.healthyArr[this.healthyArr.length - 1]);
     });
   }
   plotSimpleBarChart() {
-    //console.log(this.waiting_roomArr.reverse() + 'REVERSE');
     const myChart = HighCharts.chart('highcharts', {
       chart: {
         type: 'area'
@@ -150,11 +139,8 @@ export class ReviewPage implements OnInit {
   }
 
   doRefresh(event) {
-    console.log('Begin async operation');
-
     setTimeout(() => {
       this.loadData();
-      console.log('Async operation has ended');
       event.target.complete();
     }, 2000);
   }

@@ -30,7 +30,6 @@ export class LoginPage implements OnInit {
 
   ionViewDidEnter() {
     this.subscribe = this.platform.backButton.subscribeWithPriority(666666, () => {
-      console.log('zarijaaaaaaaaaaaaaa' + this.constructor.name);
       if (this.constructor.name === 'LoginPage'){
         if (window.confirm('Da li zelite da izadjete iz aplikacije?')){
           navigator['app'].exitApp();
@@ -52,7 +51,7 @@ export class LoginPage implements OnInit {
         .subscribe((doctor) => {
           if (doctor.username === null || doctor.password === null) {
             this.authService.logOut();
-            console.log('NE POSTOJI OVAKAV DOKTOR');
+            console.log('Doctor does not exist');
             this.presentToast('Neuspesno logovanje!');
           } else {
             this.doctorService.setDoctorProperty(doctor);

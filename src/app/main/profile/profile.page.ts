@@ -59,7 +59,6 @@ export class ProfilePage implements OnInit {
       this.doctorServer.setDoctorProperty(doctor);
       this.doctor  = this.doctorServer.getDoctorProperty();
       this.presentToast('Podaci uspeno izmenjeni!');
-      console.log('Successfully updated!');
     });
   }
 
