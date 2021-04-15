@@ -47,7 +47,7 @@ export class LoginPage implements OnInit {
   }
 
   onLogIn(logInForm){
-    this.doctorService.getDoctorByParams(logInForm.value.username, logInForm.value.password)
+    this.doctorService.getDoctorByParams({username: logInForm.value.username, password: logInForm.value.password})
         .subscribe((doctor) => {
           if (doctor.username === null || doctor.password === null) {
             this.authService.logOut();
