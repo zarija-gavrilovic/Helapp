@@ -25,7 +25,7 @@ export class ListsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.patientService.getPatientsCategory('CEKAONICA').subscribe((patients) => {
+    this.patientService.getPatientsByCategory('waiting-room').subscribe((patients) => {
       this.patients = patients;
     });
   }
@@ -34,17 +34,17 @@ export class ListsPage implements OnInit {
   loadData(){
     switch (this.list_header_menu) {
       case 'waiting-room' :
-        this.patientService.getPatientsCategory('CEKAONICA').subscribe((patients) => {
+        this.patientService.getPatientsByCategory('waiting-room').subscribe((patients) => {
           this.patients = patients.reverse();
         });
         break;
       case 'in-process' :
-        this.patientService.getPatientsCategory('HOSPITALIZACIJA').subscribe((pcategory) => {
+        this.patientService.getPatientsByCategory('in-process').subscribe((pcategory) => {
           this.patients = pcategory.reverse();
         });
         break;
       case 'healthy' :
-        this.patientService.getPatientsCategory('ZDRAV').subscribe((pcategory) => {
+        this.patientService.getPatientsByCategory('healthy').subscribe((pcategory) => {
           this.patients = pcategory.reverse();
         });
         break;
@@ -52,8 +52,8 @@ export class ListsPage implements OnInit {
   }
 
   moveToHospitalize(patient : Patient){
-    patient.review = 'HOSPITALIZACIJA';
-    this.patientService.updatePatientReview(patient).subscribe((response) => {
+    patient.category = 'in-process';
+    this.patientService.updateHospitalState(patient).subscribe((response) => {
       console.log('Successfully updated patinetID: ' + response);
     });
     this.loadData();
@@ -63,8 +63,8 @@ export class ListsPage implements OnInit {
   }
 
   moveToHealthy(patient : Patient){
-    patient.review = 'ZDRAV';
-    this.patientService.updatePatientReview(patient).subscribe();
+    patient.category = 'healthy';
+    this.patientService.updateHospitalState(patient).subscribe();
     this.loadData();
     this.patientService.snapshots.subscribe();
     let logInfo = {info : "Doktor: "+this.doctorService.getDoctorProperty().name + " "+this.doctorService.getDoctorProperty().surname + " je OTPUSTIO pacijenta: " + patient.name + " "+ patient.surname+" " +this.logInfoService.getFullTime()};

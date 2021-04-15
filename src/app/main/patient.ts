@@ -4,5 +4,5 @@ export interface Patient {
     surname: string,
     diagnosis: string,
     image: string,
-    review: string,
+    category: string,
 }

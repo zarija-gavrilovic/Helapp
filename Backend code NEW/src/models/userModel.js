@@ -5,7 +5,7 @@ class UserModel {
   tableName = "doctor";
   findOne = async (params) => {
     const { columnSet, values } = multipleColumnSet(params);
-
+    
     const sql = `SELECT * FROM ${this.tableName}
         WHERE ${columnSet}`;
 
@@ -43,13 +43,11 @@ class UserModel {
   update = async (params, id) => {
     const { columnSet, values } = multipleColumnSet(params);
     const sql = `UPDATE ${this.tableName} SET ${columnSet} WHERE doctor_id = ?`;
-  
+
     const result = await query(sql, [...values, id]);
-  
+
     return result;
   };
 }
-
-
 
 module.exports = new UserModel();

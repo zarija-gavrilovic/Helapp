@@ -33,45 +33,29 @@ export class PatientService {
     }
 
     /** GET patients from the server */
-    getPatients(): Observable<Patient[]> {
-        return this.http.get<Patient[]>(`http://${IPLocalHost.IP}:5000/patients`)
-            .pipe(
-                tap(patients => {
-                    this._patients.next(patients);
-                })
-            );
-    }
+    /*NOT USED*/
+    // getPatients(): Observable<Patient[]> {
+    //     return this.http.get<Patient[]>(`http://${IPLocalHost.IP}:5000/patients`)
+    //         .pipe(
+    //             tap(patients => {
+    //                 this._patients.next(patients);
+    //             })
+    //         );
+    // }
 
 
-    /** GET patients from the server + condition */
-    //TODO: finis getPatientsCategory
-    getPatientsCategory(category: string): Observable<Patient[]> {
+    /** GET patients from the server + condition [category] */
+    /** FIXED */
+    getPatientsByCategory(category: string): Observable<Patient[]> {
         return this.http.get<Patient[]>(`http://${IPLocalHost.IP}:5000/pcategory/${category}`);
     }
 
 
-    /**GET snapshot from patient table*/
-    getSnapshot(){
-        return this.http.get<{[ssData: string]: SnapShot }>(`http://${IPLocalHost.IP}:5000/snapshot`)
-            .pipe(
-                map((snapShotsData) => {
-                    console.log(snapShotsData);
-                    const snapShotArr: SnapShot[] = [];
-                    for(const ssData in snapShotsData){
-                        if (snapShotsData.hasOwnProperty(ssData)) {
-                            snapShotArr.push({
-                                waiting_room: snapShotsData[ssData].waiting_room,
-                                in_process: snapShotsData[ssData].in_process,
-                                healthy: snapShotsData[ssData].healthy
-                            });
-                        }
-                    }
-                    return snapShotArr;
-                }),
-                tap(snapShotArr => {
-                    this._snapshots.next(snapShotArr)
-                })
-            );
+    /**GET snapshot from the server [highcharts]*/
+    /** its a snapshot. Last 10 states in the Hospital*/
+    /**FIXED*/
+    getStates(){
+        return this.http.get<any>(`http://${IPLocalHost.IP}:5000/state`);
     }
 
     /** POST: add a new patient to the server */
@@ -90,8 +74,8 @@ export class PatientService {
     }
 
     /** PUT: update the patient on the server */
-    updatePatientReview(patient: Patient): Observable<any> {
-        return this.http.put<any>(`http://${IPLocalHost.IP}:5000/updatepatientreview/${patient.patient_id}`, patient, this.httpOptions);
+    updateHospitalState(patient: Patient): Observable<any> {
+        return this.http.put<any>(`http://${IPLocalHost.IP}:5000/state/${patient.patient_id}`, patient, this.httpOptions);
     }
 
 

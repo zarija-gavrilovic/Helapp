@@ -38,13 +38,10 @@ export class ReviewPage implements OnInit {
     this.waiting_roomArr = [];
     this.in_processArr  = [];
     this.healthyArr  = [];
-    this.patientService.getSnapshot().subscribe((snapShotsArr) => {
-      this.snapShotArr = snapShotsArr;
-      for (const ssData in snapShotsArr){
-        this.waiting_roomArr.push(snapShotsArr[ssData].waiting_room);
-        this.in_processArr.push(snapShotsArr[ssData].in_process);
-        this.healthyArr.push(snapShotsArr[ssData].healthy);
-      }
+    this.patientService.getStates().subscribe((states) => {
+        this.waiting_roomArr = states.healthy;
+        this.in_processArr = states.inProcess;
+        this.healthyArr = states.waitingRoom;
       this.plotSimpleBarChart();
       this.plotSimplePieChart(this.waiting_roomArr[this.waiting_roomArr.length - 1], this.in_processArr[this.in_processArr.length - 1], this.healthyArr[this.healthyArr.length - 1]);
     });
@@ -85,7 +82,7 @@ export class ReviewPage implements OnInit {
   }
 
   plotSimplePieChart(arr1, arr2, arr3) {
-    console.log(arr1 + 'ff' + arr2 + ' ' + arr3);
+    // console.log(arr1 + 'ff' + arr2 + ' ' + arr3);
     const sum =  Number(arr1) + Number(arr2) + Number(arr3);
     const waiting_roomPie = arr1 / sum * 100;
     const in_processPie = arr2 / sum * 100;

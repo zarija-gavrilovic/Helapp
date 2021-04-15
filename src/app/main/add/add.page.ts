@@ -30,7 +30,7 @@ export class AddPage implements OnInit {
       surname: form.value.surname,
       image: 'unknown',
       diagnosis: form.value.diagnosis,
-      review: 'CEKAONICA'
+      category: 'CEKAONICA'
     }
     this.patientService.addPatient(this.patient).subscribe((patient) => {
 
