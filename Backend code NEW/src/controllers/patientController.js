@@ -1,4 +1,5 @@
 const PatientModel = require("../models/patientModel");
+const StateController= require("../controllers/stateController")
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const HttpException = require("../utils/HttpException");
@@ -17,6 +18,20 @@ class PatientController {
 
     res.send(patients);
   };
+
+  createPatient = async (req, res, next) => {
+    this.checkValidation(req);
+    const resultCreate = await PatientModel.create(req.body);
+
+    //Treba da pozoves state, da uzmes pozlednji length-1 i da dodas na prvi niz od ta 3 +1 i da upises u state
+    const resultUpdate = await StateController.createHospitalState(req.body);
+    
+    if (!resultCreate || !resultUpdate) {
+      throw new HttpException(500, "Something went wrong");
+    }
+
+    res.status(201).send("Patient was created!");
+  }
 
 
   //NOT USED
@@ -45,12 +60,13 @@ class PatientController {
     
     res.send(patientsSorted);
   };
-  // checkValidation = (req) => {
-  //   const errors = validationResult(req);
-  //   if (!errors.isEmpty()) {
-  //     throw new HttpException(400, "Validation faild", errors);
-  //   }
-  // };
+
+  checkValidation = (req) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      throw new HttpException(400, "Validation faild", errors);
+    }
+  };
 
   // // hash password if it exists
   // hashPassword = async (req) => {

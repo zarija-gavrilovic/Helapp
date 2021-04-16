@@ -59,14 +59,20 @@ export class PatientService {
     }
 
     /** POST: add a new patient to the server */
-    addPatient(patient: Patient): Observable<Patient[]> {
-        return this.http.post<Patient[]>(`http://${IPLocalHost.IP}:5000/addpatient`, patient, this.httpOptions)
-            .pipe(
-                tap((patients)=>{
-                    this._patients.next(patients.concat(patient))
-                })
-            );
+    /**FIXED*/
+    /** Ovde vracamo string sa servera */
+    createPatient(patient: Patient): Observable<any> {
+        return this.http.post<any>(`http://${IPLocalHost.IP}:5000/patient/create`, patient, {responseType: 'text' as 'json'});
+            // .pipe(
+            //     tap((patients)=>{
+            //         this._patients.next(patients.concat(patient))
+            //     })
+            // );
     }
+
+
+
+
 
     /** PUT: update the patient on the server */
     updatePatient(patient: Patient): Observable<any> {

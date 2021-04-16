@@ -24,15 +24,15 @@ export class AddPage implements OnInit {
   }
 
   addPatient(form: NgForm) {
-    this.patient= {
+    this.patient = {
       patient_id: null,
       name: form.value.name,
       surname: form.value.surname,
       image: 'unknown',
       diagnosis: form.value.diagnosis,
-      category: 'CEKAONICA'
+      category: 'waiting-room'
     }
-    this.patientService.addPatient(this.patient).subscribe((patient) => {
+    this.patientService.createPatient(this.patient).subscribe((patient) => {
 
       console.log('RETURNED OBJECT: ' + JSON.stringify(patient));
       let logInfo = {info : "Doktor: "+this.doctorService.getDoctorProperty().name + " "+this.doctorService.getDoctorProperty().surname + " je uneo pacijenta: " + this.patient.name + " "+ this.patient.surname + " "+this.logInfoService.getFullTime()};

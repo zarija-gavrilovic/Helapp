@@ -22,31 +22,22 @@ class PatientModel {
   findAll = async () => {
     const sql = `SELECT * FROM ${this.tableName}`;
     return await query(sql, null);
-  }
-  //   create = async ({
-  //     name,
-  //     surname,
-  //     orientation,
-  //     image = null,
-  //     hospital,
-  //     username,
-  //     password,
-  //   }) => {
-  //     const sql = `INSERT INTO ${this.tableName} (name, surname, orientation, image, hospital, username, password ) VALUES (?,?,?,?,?,?,?)`;
+  };
 
-  //     const result = await query(sql, [
-  //       name,
-  //       surname,
-  //       orientation,
-  //       image,
-  //       hospital,
-  //       username,
-  //       password,
-  //     ]);
-  //     const affectedRows = result ? result.affectedRows : 0;
+  create = async ({ name, surname, diagnosis, image = null, category }) => {
+    const sql = `INSERT INTO ${this.tableName} (name, surname, diagnosis, image, category ) VALUES (?,?,?,?,?)`;
 
-  //     return affectedRows;
-  //   };
+    const result = await query(sql, [
+      name,
+      surname,
+      diagnosis,
+      image,
+      category,
+    ]);
+    const affectedRows = result ? result.affectedRows : 0;
+
+    return affectedRows;
+  };
 
   //   update = async (params, id) => {
   //     const { columnSet, values } = multipleColumnSet(params);
