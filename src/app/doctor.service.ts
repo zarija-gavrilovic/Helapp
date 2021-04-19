@@ -31,7 +31,7 @@ export class DoctorService {
 
     /** GET doctor from the server by username & password*/
     getDoctorByParams({username, password}): Observable<Doctor> {
-        return this.http.post<Doctor>(`http://${IPLocalHost.IP}:5000/login`, {username, password}, this.httpOptions);
+        return this.http.post<Doctor>(`http://${IPLocalHost.IP}:5000/doctor/login`, {username, password}, this.httpOptions);
     }
 
     /** POST: add a new doctor to the server */
