@@ -4,7 +4,6 @@ const { multipleColumnSet } = require("../utils/common");
 class PatientModel {
   tableName = "patient";
 
-  //Params default is {} but it also could be object with properties.
   findByParams = async (params = {}) => {
     let sql = `SELECT * FROM ${this.tableName}`;
 
@@ -17,11 +16,6 @@ class PatientModel {
     sql += ` WHERE ${columnSet}`;
 
     return await query(sql, [...values]);
-  };
-
-  findAll = async () => {
-    const sql = `SELECT * FROM ${this.tableName}`;
-    return await query(sql, null);
   };
 
   create = async ({ name, surname, diagnosis, image = null, category }) => {
@@ -39,14 +33,28 @@ class PatientModel {
     return affectedRows;
   };
 
-  //   update = async (params, id) => {
-  //     const { columnSet, values } = multipleColumnSet(params);
-  //     const sql = `UPDATE ${this.tableName} SET ${columnSet} WHERE doctor_id = ?`;
+  update = async (params, id) => {
+    const { columnSet, values } = multipleColumnSet(params);
+    const sql = `UPDATE ${this.tableName} SET ${columnSet} WHERE patient_id = ?`;
 
-  //     const result = await query(sql, [...values, id]);
+    const result = await query(sql, [...values, id]);
 
-  //     return result;
-  //   };
+    return result;
+  };
+
+  count = async (category) => {
+    const sql = `SELECT COUNT(patient_id) as "category" FROM ${this.tableName} WHERE category="${category}"`
+    return await query(sql, null);
+  }
+
+  delete = async (id) => {
+    const sql = `DELETE FROM ${this.tableName}
+    WHERE patient_id = ?`;
+    const result = await query(sql, [id]);
+    const affectedRows = result ? result.affectedRows : 0;
+
+    return affectedRows;
+}
 }
 
 module.exports = new PatientModel();

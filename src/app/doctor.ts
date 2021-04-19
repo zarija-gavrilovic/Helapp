@@ -7,5 +7,4 @@ export interface Doctor {
     hospital: string,
     username: string,
     password: string,
-    //TODO: add  username and password to server side.
 }

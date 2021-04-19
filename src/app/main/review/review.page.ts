@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {PatientService} from '../patient.service';
-import {SnapShot} from '../snapshot';
+import {State} from '../state';
 import {Subscription} from 'rxjs';
 import * as HighCharts from 'highcharts';
 import {Platform} from '@ionic/angular';
@@ -14,8 +14,7 @@ export class ReviewPage implements OnInit {
   waiting_roomArr = [];
   in_processArr  = [];
   healthyArr  = [];
-  private snapshotSub: Subscription;
-  private snapShotArr: SnapShot[] = [];
+  // private stateSub: Subscription;
 
   subscribe: any;
   constructor(private patientService: PatientService,
@@ -26,12 +25,8 @@ export class ReviewPage implements OnInit {
     this.loadData();
   }
 
-  // ionViewDidLeave() {
-  //   this.subscribe.unsubscribe();
-  // }
-
   ngOnInit() {
-    this.snapshotSub = this.patientService.snapshots.subscribe();
+    // this.stateSub = this.patientService.snapshots.subscribe();
   }
 
   loadData(){
@@ -39,9 +34,9 @@ export class ReviewPage implements OnInit {
     this.in_processArr  = [];
     this.healthyArr  = [];
     this.patientService.getStates().subscribe((states) => {
-        this.waiting_roomArr = states.healthy;
+        this.waiting_roomArr = states.waitingRoom;
         this.in_processArr = states.inProcess;
-        this.healthyArr = states.waitingRoom;
+        this.healthyArr = states.healthy;
       this.plotSimpleBarChart();
       this.plotSimplePieChart(this.waiting_roomArr[this.waiting_roomArr.length - 1], this.in_processArr[this.in_processArr.length - 1], this.healthyArr[this.healthyArr.length - 1]);
     });
@@ -82,12 +77,10 @@ export class ReviewPage implements OnInit {
   }
 
   plotSimplePieChart(arr1, arr2, arr3) {
-    // console.log(arr1 + 'ff' + arr2 + ' ' + arr3);
     const sum =  Number(arr1) + Number(arr2) + Number(arr3);
     const waiting_roomPie = arr1 / sum * 100;
     const in_processPie = arr2 / sum * 100;
     const healthyPie = 100 - waiting_roomPie - in_processPie;
-    console.log('Arr1: ' + waiting_roomPie + ' Arr2: ' + in_processPie + ' Arr3: ' + healthyPie + ' total: ' + sum);
 
     const myChart = HighCharts.chart('simplePie', {
       chart: {

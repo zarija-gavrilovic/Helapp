@@ -16,6 +16,7 @@ class StateModel {
 
     return affectedRows;
   };
+
 }
 
 module.exports = new StateModel();

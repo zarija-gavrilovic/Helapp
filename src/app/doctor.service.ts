@@ -29,14 +29,6 @@ export class DoctorService {
         this.doctor = doctor;
     }
 
-    /** GET doctors from the server */
-    /** This method is used in register page.
-     * Should be transfer to backend that logic so that method is unnessery
-     */
-    // getDoctors(): Observable<Doctor[]> {
-    //     return this.http.get<Doctor[]>(`http://${IPLocalHost.IP}:5000/doctors`);
-    // }
-
     /** GET doctor from the server by username & password*/
     getDoctorByParams({username, password}): Observable<Doctor> {
         return this.http.post<Doctor>(`http://${IPLocalHost.IP}:5000/login`, {username, password}, this.httpOptions);
@@ -44,14 +36,15 @@ export class DoctorService {
 
     /** POST: add a new doctor to the server */
     createDoctor(doctor: Doctor): Observable<Doctor> {
-        return this.http.post<Doctor>(`http://${IPLocalHost.IP}:5000/createdoctor`, doctor, this.httpOptions);
+        return this.http.post<Doctor>(`http://${IPLocalHost.IP}:5000/doctor/create`, doctor, {responseType: 'text' as 'json'});
     }
 
     /** PUT: update the patient on the server */
     /** Username and password are not changable! [if we speak about manual update]*/
     /** Delete user method doesn't exist, we change username and password on date */
     updateDoctor(doctor: Doctor): Observable<any> {
-        return this.http.put<any>(`http://${IPLocalHost.IP}:5000/updatedoctor/${doctor.doctor_id}`, doctor, this.httpOptions);
+        console.log('zaki',doctor);
+        return this.http.put<any>(`http://${IPLocalHost.IP}:5000/doctor/update/${doctor.doctor_id}`, doctor, {responseType: 'text' as 'json'});
     }
 
 

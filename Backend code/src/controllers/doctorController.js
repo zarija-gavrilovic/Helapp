@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config();
 
-class UserController {
+class DoctorController {
 
   userLogin = async (req, res, next) => {
     this.checkValidation(req);
@@ -19,7 +19,6 @@ class UserController {
     
     //Checking decripted password with encripted password which user write in input
     const isMatch = await bcrypt.compare(pass, user.password);
-    console.log("compare: ",isMatch);
     if (!isMatch) {
       throw new HttpException(401, "Incorrect password!");
     }
@@ -31,10 +30,11 @@ class UserController {
     });
 
     //Odvojimo password od ostlaih property-a user-a
+    //ID ne mozemo zbg lakseg updatovanja doktora
     const { password, ...userWithoutPassword } = user;
     //Sad na ostale property-a user-a kao jedan objekat dodamo
     //token i posaljemo ga kao res
-    //Ne zelimo da password bude vidlji nigde.
+    //Ne zelimo da password bude vidljiv
     res.send({ ...userWithoutPassword, token });
   };
 
@@ -57,8 +57,6 @@ class UserController {
 
     await this.hashPassword(req);
 
-    // const { body } = req.body;
-    // console.log(req.body,"zaki");
     // do the update query and get the result
     const result = await UserModel.update(req.body, req.params.id); 
 
@@ -80,7 +78,7 @@ class UserController {
   checkValidation = (req) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      throw new HttpException(400, "Validation faild", errors);
+      throw new HttpException(400, "Patient validation faild", errors);
     }
   };
 
@@ -95,4 +93,4 @@ class UserController {
 /******************************************************************************
  *                               Export
  ******************************************************************************/
- module.exports = new UserController();
+ module.exports = new DoctorController();

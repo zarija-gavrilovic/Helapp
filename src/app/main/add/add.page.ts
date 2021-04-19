@@ -32,11 +32,13 @@ export class AddPage implements OnInit {
       diagnosis: form.value.diagnosis,
       category: 'waiting-room'
     }
-    this.patientService.createPatient(this.patient).subscribe((patient) => {
+    this.patientService.createPatient(this.patient).subscribe((response) => {
 
-      console.log('RETURNED OBJECT: ' + JSON.stringify(patient));
+      console.log(response);
       let logInfo = {info : "Doktor: "+this.doctorService.getDoctorProperty().name + " "+this.doctorService.getDoctorProperty().surname + " je uneo pacijenta: " + this.patient.name + " "+ this.patient.surname + " "+this.logInfoService.getFullTime()};
-      this.logInfoService.addLogInfo(logInfo).subscribe();
+      this.logInfoService.createLogInfoItem(logInfo).subscribe(response => {
+        console.log(response);
+      });
       this.presentToast('Pacijent je uspesno unet!');
       form.reset();
     });

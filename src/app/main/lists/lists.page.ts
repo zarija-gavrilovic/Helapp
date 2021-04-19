@@ -13,7 +13,6 @@ export class ListsPage implements OnInit {
 
 
   list_header_menu: String = 'waiting-room';
-  //Which tab: waiting_room / in_process / healthy
   patients: Patient[] = [];
 
   constructor(
@@ -53,30 +52,34 @@ export class ListsPage implements OnInit {
 
   moveToHospitalize(patient : Patient){
     patient.category = 'in-process';
-    this.patientService.updateHospitalState(patient).subscribe((response) => {
-      console.log('Successfully updated patinetID: ' + response);
+    this.patientService.updatePatientCategory(patient).subscribe((response) => {
+      this.loadData();
     });
-    this.loadData();
-    this.patientService.snapshots.subscribe();
+
     let logInfo = {info : "Doktor: "+this.doctorService.getDoctorProperty().name + " "+this.doctorService.getDoctorProperty().surname + " je premestio pacijenta: " + patient.name + " "+ patient.surname + " na HOSPITALIZACIJU "+this.logInfoService.getFullTime()};
-    this.logInfoService.addLogInfo(logInfo).subscribe(logInfo => {console.log('RETURNED OBJECT: ' + JSON.stringify(patient));})
+    this.logInfoService.createLogInfoItem(logInfo).subscribe(logInfo => {console.log('RETURNED OBJECT: ' + JSON.stringify(patient));})
   }
 
   moveToHealthy(patient : Patient){
     patient.category = 'healthy';
-    this.patientService.updateHospitalState(patient).subscribe();
-    this.loadData();
-    this.patientService.snapshots.subscribe();
+    this.patientService.updatePatientCategory(patient).subscribe((response) => {
+      console.log('Successfully updated patinetID: ' + response);
+      this.loadData();
+    });
+
     let logInfo = {info : "Doktor: "+this.doctorService.getDoctorProperty().name + " "+this.doctorService.getDoctorProperty().surname + " je OTPUSTIO pacijenta: " + patient.name + " "+ patient.surname+" " +this.logInfoService.getFullTime()};
-    this.logInfoService.addLogInfo(logInfo).subscribe();
+    this.logInfoService.createLogInfoItem(logInfo).subscribe();
   }
 
   deletePatient(patient){
-    this.patientService.deletePatient(patient).subscribe();
-    this.loadData();
-    this.patientService.snapshots.subscribe();
+    this.patientService.deletePatient(patient).subscribe((response) => {
+      console.log(response);
+      this.loadData();
+    });
+
+    // this.patientService.snapshots.subscribe();
     let logInfo = {info : "Doktor: "+this.doctorService.getDoctorProperty().name + " "+this.doctorService.getDoctorProperty().surname + " je OBRISAO pacijenta: " + patient.name + " "+ patient.surname+" " +this.logInfoService.getFullTime()};
-    this.logInfoService.addLogInfo(logInfo).subscribe()
+    this.logInfoService.createLogInfoItem(logInfo).subscribe()
   }
 
 

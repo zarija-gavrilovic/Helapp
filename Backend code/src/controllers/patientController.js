@@ -22,8 +22,8 @@ class PatientController {
   createPatient = async (req, res, next) => {
     this.checkValidation(req);
     const resultCreate = await PatientModel.create(req.body);
-
-    //Treba da pozoves state, da uzmes pozlednji length-1 i da dodas na prvi niz od ta 3 +1 i da upises u state
+    
+    //We should update hostpital state too.
     const resultUpdate = await StateController.createHospitalState(req.body);
     
     if (!resultCreate || !resultUpdate) {
@@ -33,47 +33,53 @@ class PatientController {
     res.status(201).send("Patient was created!");
   }
 
+  updatePatient = async (req, res, next) => {   
+    this.checkValidation(req);
 
-  //NOT USED
-  getAllPatientsByCategory = async (req, res, next) => {
-    let patients = await PatientModel.findAll();
-    if (!patients) {
+    const patientUpdate = await PatientModel.update(req.body, req.params.id); 
+    
+    if (!patientUpdate) {
+      throw new HttpException(404, "Something went wrong");
+    }
+
+    const stateUpdate = await StateController.createHospitalState(req.body);
+
+    if (!stateUpdate) {
+      throw new HttpException(404, "Something went wrong");
+    }
+
+    const { affectedRows, changedRows, info } = patientUpdate;
+
+    const message = !affectedRows
+      ? "User not found"
+      : affectedRows && changedRows
+      ? "User updated successfully"
+      : "Updated faild";
+
+    res.send({ message, info });
+  }
+
+  deletePatient = async (req, res, next) => {
+    const result = await PatientModel.delete(req.params.id);
+    if (!result) {
       throw new HttpException(404, "User not found");
     }
-    const patientsSorted = {
-      healthy: [],
-      waitingRoom: [],
-      inProcess: [],
-    };
-    //Sort by category & split in 3 arrys
-    patients = patients.sort((patientA, patientB) =>
-      patientA.category.localeCompare(patientB.category)
-    ).map((patient) => {
-      if(patient.category === 'healthy'){
-        patientsSorted.healthy.push(patient)
-      } else if(patient.category === 'in-process'){
-        patientsSorted.inProcess.push(patient)
-      }else{
-        patientsSorted.waitingRoom.push(patient)
-      }
-    });
-    
-    res.send(patientsSorted);
-  };
+
+    const stateUpdate = await StateController.createHospitalState(req.body);
+
+    if (!stateUpdate) {
+      throw new HttpException(404, "Something went wrong");
+    }
+    res.send("Patient has been deleted");
+  }
 
   checkValidation = (req) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      throw new HttpException(400, "Validation faild", errors);
+      throw new HttpException(400, "Patient validation faild", errors);
     }
   };
 
-  // // hash password if it exists
-  // hashPassword = async (req) => {
-  //   if (req.body.password) {
-  //     req.body.password = await bcrypt.hash(req.body.password, 8);
-  //   }
-  // };
 }
 
 /******************************************************************************

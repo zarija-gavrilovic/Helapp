@@ -29,12 +29,12 @@ export class LogInfoService {
 
     /** GET patients from the server */
     getLogInfoList(): Observable<LogInfo[]> {
-        return this.http.get<LogInfo[]>(`http://${IPLocalHost.IP}:5000/loginfolist`);
+        return this.http.get<LogInfo[]>(`http://${IPLocalHost.IP}:5000/loglist/loglists`);
     }
 
     /** POST: add a new logInfo to the server */
-    addLogInfo(logInfo: LogInfo): Observable<LogInfo> {
-        return this.http.post<LogInfo>(`http://${IPLocalHost.IP}:5000/addloginfo`, logInfo, this.httpOptions);
+    createLogInfoItem(logInfo: LogInfo): Observable<LogInfo> {
+        return this.http.post<LogInfo>(`http://${IPLocalHost.IP}:5000/loglist/create`, logInfo, {responseType: 'text' as 'json'});
     }
 
 

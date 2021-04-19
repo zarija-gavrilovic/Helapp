@@ -19,7 +19,6 @@ export class RegisterPage implements OnInit {
   }
 
   onRegisterUser(registrationForm: NgForm){
-    console.log(registrationForm);
     const doctor : Doctor = {
       doctor_id: null,
       name: registrationForm.value.name,

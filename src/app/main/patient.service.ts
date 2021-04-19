@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, concat, Observable} from 'rxjs';
 import { Patient } from "./patient";
 import {map, switchMap, take, tap} from "rxjs/operators";
-import {SnapShot} from "./snapshot";
+import {State} from "./state";
 import {IPLocalHost} from "../../environments/environment";
 
 
@@ -21,73 +21,41 @@ export class PatientService {
     }
 
     private _patients = new BehaviorSubject<Patient[]>([]);
-    private _snapshots = new BehaviorSubject<SnapShot[]>([]);
+    // private _state = new BehaviorSubject<State[]>([]);
 
 
     get patients() {
         return this._patients.asObservable();
     }
 
-    get snapshots() {
-        return this._snapshots.asObservable();
-    }
-
-    /** GET patients from the server */
-    /*NOT USED*/
-    // getPatients(): Observable<Patient[]> {
-    //     return this.http.get<Patient[]>(`http://${IPLocalHost.IP}:5000/patients`)
-    //         .pipe(
-    //             tap(patients => {
-    //                 this._patients.next(patients);
-    //             })
-    //         );
+    // get snapshots() {
+    //     return this._state.asObservable();
     // }
 
-
     /** GET patients from the server + condition [category] */
-    /** FIXED */
     getPatientsByCategory(category: string): Observable<Patient[]> {
-        return this.http.get<Patient[]>(`http://${IPLocalHost.IP}:5000/pcategory/${category}`);
+        return this.http.get<Patient[]>(`http://${IPLocalHost.IP}:5000/patient/category/${category}`);
     }
 
 
     /**GET snapshot from the server [highcharts]*/
-    /** its a snapshot. Last 10 states in the Hospital*/
-    /**FIXED*/
     getStates(){
         return this.http.get<any>(`http://${IPLocalHost.IP}:5000/state`);
     }
 
     /** POST: add a new patient to the server */
-    /**FIXED*/
-    /** Ovde vracamo string sa servera */
     createPatient(patient: Patient): Observable<any> {
         return this.http.post<any>(`http://${IPLocalHost.IP}:5000/patient/create`, patient, {responseType: 'text' as 'json'});
-            // .pipe(
-            //     tap((patients)=>{
-            //         this._patients.next(patients.concat(patient))
-            //     })
-            // );
-    }
-
-
-
-
-
-    /** PUT: update the patient on the server */
-    updatePatient(patient: Patient): Observable<any> {
-        return this.http.put<any>(`http://${IPLocalHost.IP}:5000/updatepatient/${patient.patient_id}`, patient, this.httpOptions);
     }
 
     /** PUT: update the patient on the server */
-    updateHospitalState(patient: Patient): Observable<any> {
-        return this.http.put<any>(`http://${IPLocalHost.IP}:5000/state/${patient.patient_id}`, patient, this.httpOptions);
+    updatePatientCategory(patient: Patient): Observable<any> {
+        return this.http.put<any>(`http://${IPLocalHost.IP}:5000/patient/update/${patient.patient_id}`, patient, this.httpOptions);
     }
-
 
     /** DELETE: delete the patient from the server*/
     deletePatient(patient: Patient): Observable<Patient> {
-        return  this.http.get<any>(`http://${IPLocalHost.IP}:5000/deletepatient/${patient.patient_id}`,this.httpOptions);
+        return  this.http.get<any>(`http://${IPLocalHost.IP}:5000/patient/delete/${patient.patient_id}`,{responseType: 'text' as 'json'});
     }
 
 

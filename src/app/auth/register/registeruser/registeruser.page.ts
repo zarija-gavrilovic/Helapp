@@ -25,22 +25,11 @@ export class RegisteruserPage implements OnInit {
     const doctor: Doctor = this.doctorService.getDoctorProperty();
     doctor.username = registrationForm.value.username;
     doctor.password = registrationForm.value.password;
-    console.log(JSON.stringify(doctor));
-    // TODO: that should be prcessed on backend side
-    // this.doctorService.getDoctors().subscribe((doctorsData) => {
-    //   this.doctors = doctorsData;
       const doctor1 = this.doctorService.getDoctorProperty();
-    //   for (const doctor in this.doctors) {
-    //     if (this.doctors[doctor].username === doctor1.username || this.doctors[doctor].password === doctor1.password){
-    //       this.presentToast('Doktor vec postoji u bazi');
-    //       return;
-    //     }
-    //   }
       this.doctorService.createDoctor(doctor1).subscribe(() => {
         this.router.navigateByUrl('/login');
         this.presentToast('Doktor je uspesno unet u bazu');
       });
-    // });
   }
 
   async presentToast(message: string) {
@@ -52,7 +41,7 @@ export class RegisteruserPage implements OnInit {
   }
 
   goBack(){
-    this.router.navigateByUrl('/register');
+    this.router.navigateByUrl('/login');
   }
 
 }

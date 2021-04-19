@@ -57,12 +57,13 @@ export class LoginPage implements OnInit {
             this.doctorService.setDoctorProperty(doctor);
             this.authService.logIn();
             this.router.navigateByUrl('/main/review');
-            console.log(JSON.stringify(this.doctorService.getDoctorProperty()) + 'LOGIN PAGE');
+            // console.log(JSON.stringify(this.doctorService.getDoctorProperty()) + 'LOGIN PAGE');
+            console.log(doctor);
             this.logInfo = {
               info: 'Korisnik ' + doctor.name + ' ' + doctor.surname + ' se ulogovao.' + this.logInfoService.getFullTime()
             };
-            this.logInfoService.addLogInfo(this.logInfo).subscribe((logInfo) => {
-              console.log('RETURNED OBJECT: ' + JSON.stringify(logInfo));
+            this.logInfoService.createLogInfoItem(this.logInfo).subscribe((response) => {
+              console.log(response);
             });
             this.presentToast('Dobrodosli na HELAAP!');
           }

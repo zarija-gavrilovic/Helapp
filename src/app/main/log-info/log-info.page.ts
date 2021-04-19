@@ -22,12 +22,7 @@ export class LogInfoPage implements OnInit {
       private logInfoService: LogInfoService,
       private router: Router,
       private authService: AuthService
-  ) {
-    this.doctor = doctorService.getDoctorProperty();
-    this.logInfoService.getLogInfoList().subscribe((loginfolist) => {
-      this.logInfoList= loginfolist;
-    });
-  }
+  ) {}
 
   ngOnInit() {
     this.doctor = this.doctorService.getDoctorProperty();
@@ -36,6 +31,9 @@ export class LogInfoPage implements OnInit {
 
   ionViewWillEnter(){
     this.doctor = this.doctorService.getDoctorProperty();
+    this.logInfoService.getLogInfoList().subscribe((reponose) => {
+      this.logInfoList = reponose;
+    });
     this.backToLogin();
   }
 
