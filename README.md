@@ -14,7 +14,7 @@
 3. After launched server and connected to database successfully,  
    start frontend (**Angular/Ionic):  
     ``helapp> ng serve``  
-    **Check ``/helapp/environments``**
+    *Check ``/helapp/environments``*
     
 
 # Technologies
@@ -40,3 +40,5 @@ I have worked with charts:
 **username**:``admin``  
 **password**: ``admin``  
 Or you can register your own user.
+
+![alt text](https://github.com/zarija-gavrilovic/Helapp/blob/master/baner.png?raw=true)
