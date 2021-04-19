@@ -43,7 +43,6 @@ export class DoctorService {
     /** Username and password are not changable! [if we speak about manual update]*/
     /** Delete user method doesn't exist, we change username and password on date */
     updateDoctor(doctor: Doctor): Observable<any> {
-        console.log('zaki',doctor);
         return this.http.put<any>(`http://${IPLocalHost.IP}:5000/doctor/update/${doctor.doctor_id}`, doctor, {responseType: 'text' as 'json'});
     }
 
