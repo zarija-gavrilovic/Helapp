@@ -2,6 +2,9 @@
  
 ##### Helapp is a project which present data preview about patients, doctors at the Hospital
 
+
+![HelApp LOGO](https://github.com/zarija-gavrilovic/Helapp/blob/master/baner.png?raw=true)
+
 # Launch :rocket:
 
 1. Import **database** from folder:  
@@ -41,4 +44,4 @@ I have worked with charts:
 **password**: ``admin``  
 Or you can register your own user.
 
-![alt text](https://github.com/zarija-gavrilovic/Helapp/blob/master/baner.png?raw=true)
+
