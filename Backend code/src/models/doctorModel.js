@@ -1,7 +1,7 @@
 const query = require("../db/db-connection");
 const { multipleColumnSet } = require("../utils/common");
 
-class UserModel {
+class DoctorModel {
   tableName = "doctor";
   findOne = async (params) => {
     const { columnSet, values } = multipleColumnSet(params);
@@ -48,4 +48,4 @@ class UserModel {
   };
 }
 
-module.exports = new UserModel();
+module.exports = new DoctorModel();

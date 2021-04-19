@@ -1,7 +1,6 @@
 const PatientModel = require("../models/patientModel");
 const StateController= require("../controllers/stateController")
 const { validationResult } = require("express-validator");
-const bcrypt = require("bcryptjs");
 const HttpException = require("../utils/HttpException");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");

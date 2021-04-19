@@ -1,6 +1,6 @@
 const { body } = require("express-validator"); // check req.body directly:
 
-exports.createUserSchema = [
+exports.createDoctorSchema = [
   body("name")
     .exists()
     .withMessage("Your first name is required")
@@ -45,7 +45,7 @@ exports.createUserSchema = [
     .withMessage("Password can contain max 10 characters"),
 ];
 
-exports.updateUserSchema = [
+exports.updateDoctorSchema = [
   body("username")
     .optional()
     .isLength({ min: 3 })
@@ -75,26 +75,7 @@ exports.updateUserSchema = [
     .notEmpty()
     .isLength({ min: 3 })
     .withMessage("Password must contain at least 3 characters"),
-  // body()
-  //   .custom((value) => {
-  //     return !!Object.keys(value).length;
-  //   })
-  //   .withMessage("Please provide required field to update")
-  //   .custom((value) => {
-  //     const updates = Object.keys(value);
-  //     const allowUpdates = [
-  //       "username",
-  //       "password",
-  //       "confirm_password",
-  //       "email",
-  //       "role",
-  //       "first_name",
-  //       "last_name",
-  //       "age",
-  //     ];
-  //     return updates.every((update) => allowUpdates.includes(update));
-  //   })
-  //   .withMessage("Invalid updates!"),
+
 ];
 
 exports.validateLogin = [

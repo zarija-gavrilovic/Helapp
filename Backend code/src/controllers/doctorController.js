@@ -1,4 +1,4 @@
-const UserModel = require("../models/userModel");
+const DoctorModel = require("../models/doctorModel");
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const HttpException = require("../utils/HttpException");
@@ -12,7 +12,7 @@ class DoctorController {
     this.checkValidation(req);
 
     const { username, password:pass } = req.body;
-    const user = await UserModel.findOne({ username });
+    const user = await DoctorModel.findOne({ username });
     if (!user) {
       throw new HttpException(401, "Unable to login!");
     }
@@ -43,7 +43,7 @@ class DoctorController {
       
       await this.hashPassword(req);
 
-      const result = await UserModel.create(req.body);
+      const result = await DoctorModel.create(req.body);
       if (!result) {
         throw new HttpException(500, "Something went wrong");
       }
@@ -58,7 +58,7 @@ class DoctorController {
     await this.hashPassword(req);
 
     // do the update query and get the result
-    const result = await UserModel.update(req.body, req.params.id); 
+    const result = await DoctorModel.update(req.body, req.params.id);
 
     if (!result) {
       throw new HttpException(404, "Something went wrong");
